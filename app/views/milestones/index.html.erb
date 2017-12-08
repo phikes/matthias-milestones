@@ -1,0 +1,30 @@
+<h1>Matthias's Learning Milestones</h1>
+<% if flash[:success] %>
+    <h2 style="color: green; border: 1px solid darkgreen; border-radius: 3px; padding: 5px; background: lightgreen"><%= flash[:success] %></h2>
+<% end  %>
+<%= link_to "New milestone", new_milestone_path %>
+<table>
+    <tr>
+        <th></th>
+        <th>Title</th>
+        <th></th>
+        <th></th>
+    </tr>
+    <% @milestones.each do |milestone| %>
+        <tr>
+            <td><%="✅" if milestone.done?%></td>
+            <td><%= milestone.title %></td>
+            <td>
+                <%= link_to "Delete", milestone_path(milestone), method: :delete %>
+                <%= link_to "Edit", edit_milestone_path(milestone) %>
+            </td>
+            <td>
+                <% if milestone.done? %>
+                    <%= link_to "undo", milestone_path(milestone, milestone: { done: false }), method: :put %>
+                <% else %>
+                    <%= link_to "DONE! 😎", milestone_path(milestone, milestone: { done: true }), method: :put %>
+                <% end %>
+            </td>
+        </tr>
+    <% end %>
+</table>
