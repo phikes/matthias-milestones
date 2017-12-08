@@ -1,4 +1,6 @@
 class MilestonesController < ApplicationController
+  http_basic_authenticate_with name: "matthias", password: "alwayskeeponlearning"
+
   def index
     @milestones = Milestone.order :created_at
   end
